@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Game backup file-->
+<game bestScore="2488" currentScore="0" lastCurrentScore="0" gamerGuid="b3f87c04-2182-4e34-a9cd-41986a32972b" currentGameState="InProgress">
+  <tileMatrix>
+    <cell row="0" column="0">2</cell>
+    <cell row="0" column="1">8</cell>
+    <cell row="0" column="2">4</cell>
+    <cell row="0" column="3">512</cell>
+    <cell row="1" column="0">32</cell>
+    <cell row="1" column="1">2</cell>
+    <cell row="1" column="2">8</cell>
+    <cell row="1" column="3">16</cell>
+    <cell row="2" column="0">128</cell>
+    <cell row="2" column="1">4</cell>
+    <cell row="2" column="2">32</cell>
+    <cell row="2" column="3">64</cell>
+    <cell row="3" column="0">256</cell>
+    <cell row="3" column="1">8</cell>
+    <cell row="3" column="2">4</cell>
+    <cell row="3" column="3">0</cell>
+  </tileMatrix>
+</game>

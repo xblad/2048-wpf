@@ -1,0 +1,13 @@
+﻿<Window x:Class="Game2048.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Game2048.ViewModels"
+        Title="2048 Game" 
+        Height="600" Width="500"
+        MinHeight="500" MinWidth="400"
+        Icon="assets/2048.png"
+        Background="#FAF8EF" Closing="Window_Closing">
+    <Grid>
+        <Frame x:Name="MainWindowFrame" NavigationUIVisibility="Hidden" Source="MainMenuPage.xaml" />
+    </Grid>
+</Window>

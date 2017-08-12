@@ -1,0 +1,56 @@
+﻿<Page x:Class="Game2048.MainMenuPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d"
+	  Title="Main Menu"
+      ShowsNavigationUI="False" Loaded="Page_Loaded">
+    <Page.Resources>
+        <!-- Strings -->
+        <sys:String x:Key="MainMenuText">Main menu</sys:String>
+        <sys:String x:Key="NewGameText">New Game</sys:String>
+        <sys:String x:Key="ContinueText">Continue</sys:String>
+        <sys:String x:Key="StatisticsText">Statistics</sys:String>
+        <sys:String x:Key="AboutText">About</sys:String>
+
+        <!-- Styles -->
+        <Style x:Key="MainMenuStackPanelStyle" TargetType="{x:Type StackPanel}">
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <TranslateTransform />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="14*" MaxWidth="600" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel x:Name="MainMenuStackPanel" Grid.Row="1" Grid.Column="1" Style="{StaticResource MainMenuStackPanelStyle}">
+
+            <Label Style="{StaticResource BigLabelStyle}" Content="{StaticResource MainMenuText}" />
+
+            <Button x:Name="NewGameButton" Style="{StaticResource BigButtonStyle}" Content="{StaticResource NewGameText}" Click="NewGameButton_Click" />
+            <Button x:Name="ContinueButton" Style="{StaticResource BigButtonStyle}" Content="{StaticResource ContinueText}" Click="ContinueButton_Click" Visibility="Collapsed"/>
+            <Button x:Name="StatisticsButton" Style="{StaticResource BigButtonStyle}" Content="{StaticResource StatisticsText}" Click="StatisticsButton_Click" />
+            <Button x:Name="AboutButton" Style="{StaticResource BigButtonStyle}" Content="{StaticResource AboutText}" Click="AboutButton_Click" />
+            
+            <StackPanel.Triggers>
+                <EventTrigger RoutedEvent="StackPanel.Loaded">
+                    <BeginStoryboard Storyboard="{StaticResource TopBottomFadeInTransition}" />
+                </EventTrigger>
+            </StackPanel.Triggers>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,58 @@
+﻿<UserControl x:Name="YouWinUserControl" x:Class="Game2048.CustomControls.YouWinWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:cc="clr-namespace:Game2048.CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <sys:String x:Key="ImDoneButtonText">I'm done!</sys:String>
+        <sys:String x:Key="ContinueButtonText">Continue</sys:String>
+        <sys:String x:Key="YouWinLabelText">You win</sys:String>
+
+        <Style TargetType="{x:Type cc:YouWinWindow}">
+            <Setter Property="Background" Value="#66EEC22E" />
+            <Style.Triggers>
+                <Trigger Property="Visibility" Value="Visible">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource FadeInTransition}" />
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard Storyboard="{StaticResource FadeOutTransition}" />
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="YouWinGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button x:Name="CloseButton" Style="{StaticResource LittleButtonStyle}" Grid.Row="0" Grid.Column="0"
+                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="CloseButton_Click">
+            <Image Source="../assets/cancel.png" RenderTransformOrigin="0.291,0.291" />
+        </Button>
+
+        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10" Style="{StaticResource BigLabelStyle}"
+               Content="{StaticResource YouWinLabelText}" />
+        <Grid x:Name="ResultSenderGrid" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="ContinueButton" Style="{StaticResource BigButtonStyle}" Grid.Column="0"
+                    Content="{DynamicResource ContinueButtonText}" Margin="15,5,10,5" Padding="15,5"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    Click="ContinueButton_Click"/>
+            <Button x:Name="ImDoneButton" Style="{StaticResource BigButtonStyle}" Grid.Column="1"
+                    Content="{DynamicResource ImDoneButtonText}" Margin="10,5,15,5" Padding="15,5"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    Click="ImDoneButton_Click"/>
+        </Grid>
+    </Grid>
+</UserControl>

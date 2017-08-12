@@ -1,0 +1,149 @@
+﻿<Application x:Class="Game2048.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cc="clr-namespace:Game2048.CustomControls"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <!-- Brushes -->
+        <SolidColorBrush x:Key="DarkBrownBrush" Color="#8F7A66" />
+        
+        <SolidColorBrush x:Key="DarkTileForegroundColorBrush" Color="#776E65" />
+        <SolidColorBrush x:Key="LightTileForegroundColorBrush" Color="White" />
+
+        <SolidColorBrush x:Key="N2BackgroundTileColorBrush" Color="#EEE4DA" />
+        <SolidColorBrush x:Key="N4BackgroundTileColorBrush" Color="#EDE0C8" />
+        <SolidColorBrush x:Key="N8BackgroundTileColorBrush" Color="#F2B179" />
+        <SolidColorBrush x:Key="N16BackgroundTileColorBrush" Color="#F59563" />
+        <SolidColorBrush x:Key="N32BackgroundTileColorBrush" Color="#F67C5F" />
+        <SolidColorBrush x:Key="N64BackgroundTileColorBrush" Color="#F65E3B" />
+        <SolidColorBrush x:Key="N128BackgroundTileColorBrush" Color="#EDCF72" />
+        <SolidColorBrush x:Key="N256BackgroundTileColorBrush" Color="#EDCC61" />
+        <SolidColorBrush x:Key="N512BackgroundTileColorBrush" Color="#ECC850" />
+        <SolidColorBrush x:Key="N1024BackgroundTileColorBrush" Color="#EDC53F" />
+        <SolidColorBrush x:Key="N2048BackgroundTileColorBrush" Color="#EEC22E" />
+        
+        <!-- Styles -->
+        
+        <Style TargetType="{x:Type ToolTip}">
+            <Setter Property="Background" Value="{StaticResource DarkBrownBrush}" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style x:Key="SmallButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Viewbox Width="{TemplateBinding Width}">
+                            <ContentPresenter Content="{TemplateBinding Content}" />
+                        </Viewbox>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value=".8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="LittleButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource SmallButtonStyle}">
+            <Setter Property="Width" Value="20"/>
+        </Style>
+        <Style x:Key="BigLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="Foreground" Value="{StaticResource DarkBrownBrush}" />
+            <Setter Property="FontFamily" Value="Helvetica" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style x:Key="MiddleLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource BigLabelStyle}">
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <Style x:Key="SmallLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource BigLabelStyle}">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Normal" />
+        </Style>
+        <Style x:Key="BigButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Background" Value="{StaticResource DarkBrownBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Padding" Value="0,5" />
+            <Setter Property="Margin" Value="10,2" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontFamily" Value="Helvetica" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="4" Background="{TemplateBinding Background}" BorderBrush="{StaticResource DarkBrownBrush}" BorderThickness="1">
+                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}" />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value=".8" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="White" />
+                                <Setter Property="Foreground" Value="{StaticResource DarkBrownBrush}" />
+                                <Setter Property="Opacity" Value="1" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Storyboards -->
+        <Storyboard x:Key="FadeInTransition">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:.5" />
+        </Storyboard>
+        <Storyboard x:Key="FadeOutTransition">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:.5" />
+        </Storyboard>
+        <Storyboard x:Key="ZoomInTransition">
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" From=".5" To="1" Duration="0:0:.3">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" From=".5" To="1" Duration="0:0:.3">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:.3" />
+        </Storyboard>
+        <Storyboard x:Key="DropShadowInOutTransition" AutoReverse="True" RepeatBehavior="1x">
+            <DoubleAnimation Storyboard.TargetProperty="Effect.(DropShadowEffect.Opacity)" From="0" To="1" Duration="0:0:.5">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Key="ZoomOutTransition">
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" From="1" To=".75" Duration="0:0:3">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" From="1" To=".75" Duration="0:0:3">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To=".9" Duration="0:0:3" />
+        </Storyboard>
+        <Storyboard x:Key="TopBottomFadeInTransition">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1" />
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)" From="-30" To="0" Duration="0:0:1">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </Application.Resources>
+</Application>
